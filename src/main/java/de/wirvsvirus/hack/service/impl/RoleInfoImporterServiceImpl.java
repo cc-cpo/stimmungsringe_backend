@@ -2,7 +2,6 @@ package de.wirvsvirus.hack.service.impl;
 
 import de.wirvsvirus.hack.exception.RoleNotFoundException;
 import de.wirvsvirus.hack.model.Role;
-import de.wirvsvirus.hack.model.RoleInfo;
 import de.wirvsvirus.hack.service.RoleBasedTextSuggestionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
@@ -35,13 +34,13 @@ public class RoleInfoImporterServiceImpl implements RoleBasedTextSuggestionsServ
     private static final int COLUMN_THIRD_PARTY_RECOMMENDATION = 4;
     private static final int COLUMN_FOR_OTHERS = 5;
 
-    private Map<Role, List<RoleInfo>> roleRoleDataMap;
+    private Map<Role, List<RoleSuggestionTextsRow>> roleRoleDataMap;
 
     @PostConstruct
     private void initialize() throws IOException {
         log.info("Relsole Role data from CSV...");
-        final List<RoleInfo> roleData = importData(RoleBasedTextSuggestionsService.class.getResourceAsStream(DATA_FILE));
-        this.roleRoleDataMap = roleData.parallelStream().collect(groupingBy(RoleInfo::getRole));
+        final List<RoleSuggestionTextsRow> roleData = importData(RoleBasedTextSuggestionsService.class.getResourceAsStream(DATA_FILE));
+        this.roleRoleDataMap = roleData.parallelStream().collect(groupingBy(RoleSuggestionTextsRow::getRole));
     }
 
     @Override
@@ -54,8 +53,8 @@ public class RoleInfoImporterServiceImpl implements RoleBasedTextSuggestionsServ
         return this.roleRoleDataMap.get(role).stream().map(r -> r.getForOthers()).collect(Collectors.toList());
     }
 
-    private List<RoleInfo> importData(InputStream inputStream) throws IOException {
-        final List<RoleInfo> roleTexts = new ArrayList<>();
+    private List<RoleSuggestionTextsRow> importData(InputStream inputStream) throws IOException {
+        final List<RoleSuggestionTextsRow> roleTexts = new ArrayList<>();
 
         final Iterable<CSVRecord> records = CSVFormat.DEFAULT
                 .withDelimiter(DELIMITER)
@@ -64,7 +63,7 @@ public class RoleInfoImporterServiceImpl implements RoleBasedTextSuggestionsServ
 
         for (CSVRecord record : records) {
             try {
-                roleTexts.add(RoleInfo.builder()
+                roleTexts.add(RoleSuggestionTextsRow.builder()
                         .role(Role.ofIdentifier(record.get(COLUMN_ROLE)))
                         .expectation(record.get(COLUMN_EXPECTATION))
                         .selfRecommendation(record.get(COLUMN_SELF_RECOMMENDATION))

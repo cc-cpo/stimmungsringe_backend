@@ -1,5 +1,6 @@
-package de.wirvsvirus.hack.model;
+package de.wirvsvirus.hack.service.impl;
 
+import de.wirvsvirus.hack.model.Role;
 import lombok.Builder;
 import lombok.Data;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class RoleInfo {
+public class RoleSuggestionTextsRow {
 
     private Role role;
     private String expectation;

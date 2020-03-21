@@ -2,15 +2,13 @@ package de.wirvsvirus.hack.rest;
 
 import com.google.common.base.Preconditions;
 import de.wirvsvirus.hack.model.SentimentVO;
-import de.wirvsvirus.hack.model.Sentiments;
+import de.wirvsvirus.hack.model.Sentiment;
 import de.wirvsvirus.hack.model.User;
 import de.wirvsvirus.hack.model.UserRepository;
 import de.wirvsvirus.hack.rest.dto.*;
 import de.wirvsvirus.hack.service.RoleBasedTextSuggestionsService;
 import de.wirvsvirus.hack.spring.UserInterceptor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +46,7 @@ public class OtherStatusPageController {
         final UserMinimalResponse me = Mappers.mapResponseFromDomain(otherUser);
 
         final SentimentStatusResponse sentimentStatusResponse = new SentimentStatusResponse();
-        sentimentStatusResponse.setSentiment(new SentimentVO(Sentiments.SUN));
+        sentimentStatusResponse.setSentiment(new SentimentVO(Sentiment.SUN));
         final List<SuggestionResponse> suggestions = new ArrayList<>();
 
         otherUser.getRoles().stream()

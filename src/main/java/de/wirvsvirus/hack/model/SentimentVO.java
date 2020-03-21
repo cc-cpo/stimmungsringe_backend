@@ -10,6 +10,6 @@ import javax.validation.constraints.NotNull;
 public class SentimentVO {
 
     @NotNull
-    private Sentiments sentimentCode;
+    private Sentiment sentimentCode;
 
 }

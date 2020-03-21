@@ -2,14 +2,12 @@ package de.wirvsvirus.hack.rest;
 
 import com.google.common.collect.Lists;
 import de.wirvsvirus.hack.model.SentimentVO;
-import de.wirvsvirus.hack.model.Sentiments;
+import de.wirvsvirus.hack.model.Sentiment;
 import de.wirvsvirus.hack.model.User;
 import de.wirvsvirus.hack.model.UserRepository;
 import de.wirvsvirus.hack.rest.dto.*;
 import de.wirvsvirus.hack.spring.UserInterceptor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +33,7 @@ public class DashboardController {
             final UserMinimalResponse me = Mappers.mapResponseFromDomain(currentUser);
 
             final SentimentStatusResponse regen = new SentimentStatusResponse();
-            regen.setSentiment(new SentimentVO(Sentiments.CLOUD_RAIN));
+            regen.setSentiment(new SentimentVO(Sentiment.CLOUD_RAIN));
 
             MyTileResponse myTileResponse = new MyTileResponse();
             myTileResponse.setUser(me);
@@ -50,7 +48,7 @@ public class DashboardController {
             final UserMinimalResponse other = Mappers.mapResponseFromDomain(otherUser);
 
             final SentimentStatusResponse sturm = new SentimentStatusResponse();
-            sturm.setSentiment(new SentimentVO(Sentiments.SMOG));
+            sturm.setSentiment(new SentimentVO(Sentiment.SMOG));
 
             OtherTileResponse tileResponse = new OtherTileResponse();
             tileResponse.setUser(other);
