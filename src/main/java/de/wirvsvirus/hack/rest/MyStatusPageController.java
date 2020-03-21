@@ -30,17 +30,17 @@ public class MyStatusPageController {
     @GetMapping
     public MyStatusPageResponse viewMyStatusPage() {
 
-        final User user = userRepository.findByUserId(UserInterceptor.getCurrentUserId());
+        final User currentUser = userRepository.findByUserId(UserInterceptor.getCurrentUserId());
 
         MyStatusPageResponse response = new MyStatusPageResponse();
 
-        final UserMinimalResponse me = Mappers.mapResponseFromDomain(user);
+        final UserMinimalResponse me = Mappers.mapResponseFromDomain(currentUser);
 
         final SentimentStatusResponse sentimentStatusResponse = new SentimentStatusResponse();
         sentimentStatusResponse.setSentiment(new SentimentVO("Wolken"));
         final List<SuggestionResponse> suggestions = new ArrayList<>();
 
-        user.getRoles().stream()
+        currentUser.getRoles().stream()
             .flatMap(role -> suggestionsService.forMe(role).stream())
             .map(text -> {
                 final SuggestionResponse sugg = new SuggestionResponse();

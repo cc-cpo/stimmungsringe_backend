@@ -2,26 +2,36 @@ package de.wirvsvirus.hack.rest;
 
 import com.google.common.collect.Lists;
 import de.wirvsvirus.hack.model.SentimentVO;
+import de.wirvsvirus.hack.model.User;
+import de.wirvsvirus.hack.model.UserRepository;
 import de.wirvsvirus.hack.rest.dto.*;
+import de.wirvsvirus.hack.spring.UserInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/dashboard")
 @Slf4j
 public class DashboardController {
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping
     public DashboardResponse dashboardView() {
+        final User currentUser = userRepository.findByUserId(UserInterceptor.getCurrentUserId());
+
         DashboardResponse response = new DashboardResponse();
 
         {
-            final UserMinimalResponse me = new UserMinimalResponse();
-            me.setDisplayName("Timmy");
+            final UserMinimalResponse me = Mappers.mapResponseFromDomain(currentUser);
 
             final SentimentStatusResponse regen = new SentimentStatusResponse();
             regen.setSentiment(new SentimentVO("Regen und Donner"));
@@ -33,34 +43,20 @@ public class DashboardController {
             response.setMyTile(myTileResponse);
         }
 
-        {
-            final UserMinimalResponse mutti = new UserMinimalResponse();
-            mutti.setDisplayName("Mutti");
+        final List<User> otherUsersInGroup = userRepository.findOtherUsersInGroup(currentUser.getId());
 
-            final SentimentStatusResponse sonnenschein = new SentimentStatusResponse();
-            sonnenschein.setSentiment(new SentimentVO("Sonnenschein"));
-
-            OtherTileResponse muttiTileResponse = new OtherTileResponse();
-            muttiTileResponse.setUser(mutti);
-            muttiTileResponse.setSentimentStatus(sonnenschein);
-
-            response.setOtherTiles(Lists.newArrayList(muttiTileResponse));
-        }
-
-        {
-            final UserMinimalResponse mutti = new UserMinimalResponse();
-            mutti.setDisplayName("Vater");
+        for (final User otherUser : otherUsersInGroup) {
+            final UserMinimalResponse other = Mappers.mapResponseFromDomain(otherUser);
 
             final SentimentStatusResponse sturm = new SentimentStatusResponse();
             sturm.setSentiment(new SentimentVO("Sturm"));
 
-            OtherTileResponse vattiTileResponse = new OtherTileResponse();
-            vattiTileResponse.setUser(mutti);
-            vattiTileResponse.setSentimentStatus(sturm);
+            OtherTileResponse tileResponse = new OtherTileResponse();
+            tileResponse.setUser(other);
+            tileResponse.setSentimentStatus(sturm);
 
-            response.setOtherTiles(Lists.newArrayList(vattiTileResponse));
+            response.setOtherTiles(Lists.newArrayList(tileResponse));
         }
-
 
         return response;
     }

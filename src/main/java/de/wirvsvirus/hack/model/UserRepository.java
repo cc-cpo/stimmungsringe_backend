@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -30,6 +31,16 @@ public class UserRepository {
             StreamEx.of(mockDb)
                 .collect(MoreCollectors.onlyOne(user -> user.getId().equals(userId)))
             .orElseThrow(() -> new IllegalStateException("User not found by id " + userId));
+    }
+
+    /**
+     * return all users in same group except the requesting user
+     */
+    public List<User> findOtherUsersInGroup(UUID userId) {
+        return
+        mockDb.stream()
+            .filter(user -> !user.getId().equals(userId))
+            .collect(Collectors.toList());
     }
 
 }
