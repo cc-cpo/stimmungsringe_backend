@@ -1,26 +1,33 @@
 package de.wirvsvirus.hack.mock;
 
 import com.google.common.collect.Lists;
+import de.wirvsvirus.hack.model.Role;
 import de.wirvsvirus.hack.model.User;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-@Service
 public class MockFactory {
 
-    @PostConstruct
-    public void initMock() {
+    public static List<User> allUsers() {
+        final List<User> users = new ArrayList<>();
+
+        {
+            User user = new User(UUID.fromString("cafecafe-b855-46ba-b907-321d2d38beef"));
+            user.setName("Mutti (ich)");
+            user.setRoles(Lists.newArrayList(Role.ARBEITNEHMER, Role.ELTERNTEIL, Role.Me_Time));
+            users.add(user);
+        }
+
+        {
+            User user = new User(UUID.fromString("12340000-b855-46ba-b907-321d2d38feeb"));
+            user.setName("Timmy ZZZ");
+            user.setRoles(Lists.newArrayList(Role.KIND));
+            users.add(user);
+        }
+
+        return users;
     }
-
-    public List<User> allUsers() {
-
-        User u1 = new User();
-        u1.setName("Mutti");
-
-        return Lists.newArrayList(u1);
-    }
-
 
 }

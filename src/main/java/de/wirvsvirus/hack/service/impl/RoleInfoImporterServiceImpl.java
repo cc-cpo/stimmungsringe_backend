@@ -3,7 +3,7 @@ package de.wirvsvirus.hack.service.impl;
 import de.wirvsvirus.hack.exception.RoleNotFoundException;
 import de.wirvsvirus.hack.model.Role;
 import de.wirvsvirus.hack.model.RoleInfo;
-import de.wirvsvirus.hack.service.RoleInfoImporterService;
+import de.wirvsvirus.hack.service.RoleBasedTextSuggestionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.groupingBy;
 
 @Service
 @Slf4j
-public class RoleInfoImporterServiceImpl implements RoleInfoImporterService {
+public class RoleInfoImporterServiceImpl implements RoleBasedTextSuggestionsService {
 
     private static final String DATA_FILE = "/data/role_text.csv";
 
@@ -40,7 +40,7 @@ public class RoleInfoImporterServiceImpl implements RoleInfoImporterService {
     @PostConstruct
     private void initialize() throws IOException {
         log.info("Relsole Role data from CSV...");
-        final List<RoleInfo> roleData = importData(RoleInfoImporterService.class.getResourceAsStream(DATA_FILE));
+        final List<RoleInfo> roleData = importData(RoleBasedTextSuggestionsService.class.getResourceAsStream(DATA_FILE));
         this.roleRoleDataMap = roleData.parallelStream().collect(groupingBy(RoleInfo::getRole));
     }
 
@@ -73,7 +73,7 @@ public class RoleInfoImporterServiceImpl implements RoleInfoImporterService {
                         .forOthers(record.get(COLUMN_FOR_OTHERS))
                         .build());
             } catch (RoleNotFoundException e) {
-                log.error(e.getMessage());
+                throw new IllegalStateException(e);
             }
         }
         return roleTexts;

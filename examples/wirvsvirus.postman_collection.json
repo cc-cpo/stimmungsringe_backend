@@ -126,12 +126,12 @@
 			"response": []
 		},
 		{
-			"name": "Get My Avatar image",
+			"name": "Get Avatar image for me",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/stimmungsring/images/avatar/cafecafe-b855-46ba-b907-321d2d38beef",
+					"raw": "http://localhost:8080/stimmungsring/images/avatar/cafecafe-b855-46ba-b907-321d2d38bee1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -141,14 +141,14 @@
 						"stimmungsring",
 						"images",
 						"avatar",
-						"cafecafe-b855-46ba-b907-321d2d38beef"
+						"cafecafe-b855-46ba-b907-321d2d38bee1"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get Fremde Seite",
+			"name": "Get Fremde Seite - Mutti schaut Timmy's Page an",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -169,6 +169,74 @@
 						"stimmungsring",
 						"otherstatuspage",
 						"12340000-b855-46ba-b907-321d2d38feeb"
+					],
+					"query": [
+						{
+							"key": "X-User-I",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Fremde Seite - fail looking your own",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-User-ID",
+						"value": "12340000-b855-46ba-b907-321d2d38feeb",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/stimmungsring/otherstatuspage/12340000-b855-46ba-b907-321d2d38feeb",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stimmungsring",
+						"otherstatuspage",
+						"12340000-b855-46ba-b907-321d2d38feeb"
+					],
+					"query": [
+						{
+							"key": "X-User-I",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Fremde Seite - Timmy schaut Mutti's Page an",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-User-ID",
+						"type": "text",
+						"value": "12340000-b855-46ba-b907-321d2d38feeb"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/stimmungsring/otherstatuspage/cafecafe-b855-46ba-b907-321d2d38beef",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stimmungsring",
+						"otherstatuspage",
+						"cafecafe-b855-46ba-b907-321d2d38beef"
 					],
 					"query": [
 						{

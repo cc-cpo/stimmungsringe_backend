@@ -7,7 +7,8 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum Role {
-    Arbeitnehmer("Arbeitnehmer"), Elternteil("Elternteil"), Partner("Partner"), Kind("Kind"), Me_Time("Me-Time");
+    ARBEITNEHMER("Arbeitnehmer"), ELTERNTEIL("Elternteil"), PARTNER("Partner"), KIND("Kind")
+    , Me_Time("Me-Time");
 
     private final String identifier;
 
@@ -16,7 +17,10 @@ public enum Role {
     }
 
     public static Role ofIdentifier(String identifier) throws RoleNotFoundException {
-        final Optional<Role> optRole = Arrays.stream(Role.values()).filter(r -> StringUtils.equalsAnyIgnoreCase(r.identifier, identifier)).findFirst();
+        final Optional<Role> optRole =
+                Arrays.stream(Role.values())
+                        .filter(r -> StringUtils.equalsAnyIgnoreCase(r.identifier, identifier))
+                        .findFirst();
         if (optRole.isPresent()) {
             return optRole.get();
         } else {

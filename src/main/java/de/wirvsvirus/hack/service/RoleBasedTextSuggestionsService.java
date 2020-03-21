@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public interface RoleInfoImporterService {
+public interface RoleBasedTextSuggestionsService {
 
     List<String> forMe(Role role);
 
