@@ -21,7 +21,7 @@ import java.util.UUID;
 public class OtherStatusPageController {
 
     @GetMapping("/{otherUserId}")
-    public OtherStatusPageResponse viewOtherStatusPage(@PathVariable @NotNull  UUID otherUserId) {
+    public OtherStatusPageResponse viewOtherStatusPage(@PathVariable("otherUserId") @NotNull  UUID otherUserId) {
         OtherStatusPageResponse response = new OtherStatusPageResponse();
 
         final UserMinimalResponse me = new UserMinimalResponse();
