@@ -26,7 +26,7 @@ public class RegistrationController {
         // TODO
 
         if (!Pattern.compile("[\\p{IsLatin}]{2,20}", Pattern.CASE_INSENSITIVE).matcher(request.getRequestedUsername()).matches()) {
-            throw new RegistrationFailedException("Der Benutzername hat falschem Format " + request.getRequestedUsername());
+            throw new RegistrationFailedException("Der Benutzername " + request.getRequestedUsername() + " hat falschem Format!");
         }
 
     }
