@@ -1,10 +1,10 @@
-package de.wirvsvirus.hack.virtuellestimmungsringe;
+package de.wirvsvirus.hack;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class VirtuelleStimmungsringeApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
