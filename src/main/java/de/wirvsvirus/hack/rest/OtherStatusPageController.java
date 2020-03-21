@@ -1,5 +1,6 @@
 package de.wirvsvirus.hack.rest;
 
+import de.wirvsvirus.hack.model.SentimentVO;
 import de.wirvsvirus.hack.rest.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +28,7 @@ public class OtherStatusPageController {
         me.setDisplayName("Mutti");
 
         final SentimentStatusResponse sentimentStatusResponse = new SentimentStatusResponse();
-        sentimentStatusResponse.setSentimentText("Sonnenschein");
+        sentimentStatusResponse.setSentiment(new SentimentVO("Sonnenschein"));
         final List<SuggestionResponse> suggestions = new ArrayList<>();
 
         {

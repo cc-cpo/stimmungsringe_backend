@@ -4,7 +4,7 @@ import de.wirvsvirus.hack.model.SentimentVO;
 import lombok.Data;
 
 @Data
-public class SentimentStatusResponse {
+public class UpdateStatusRequest {
 
     private SentimentVO sentiment;
 

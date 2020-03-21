@@ -1,6 +1,7 @@
 package de.wirvsvirus.hack.rest;
 
 import com.google.common.collect.Lists;
+import de.wirvsvirus.hack.model.SentimentVO;
 import de.wirvsvirus.hack.rest.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class DashboardController {
             me.setDisplayName("Timmy");
 
             final SentimentStatusResponse regen = new SentimentStatusResponse();
-            regen.setSentimentText("Regen und Donner");
+            regen.setSentiment(new SentimentVO("Regen und Donner"));
 
             MyTileResponse myTileResponse = new MyTileResponse();
             myTileResponse.setUser(me);
@@ -37,7 +38,7 @@ public class DashboardController {
             mutti.setDisplayName("Mutti");
 
             final SentimentStatusResponse sonnenschein = new SentimentStatusResponse();
-            sonnenschein.setSentimentText("Sonnenschein");
+            sonnenschein.setSentiment(new SentimentVO("Sonnenschein"));
 
             OtherTileResponse muttiTileResponse = new OtherTileResponse();
             muttiTileResponse.setUser(mutti);
@@ -51,7 +52,7 @@ public class DashboardController {
             mutti.setDisplayName("Vater");
 
             final SentimentStatusResponse sturm = new SentimentStatusResponse();
-            sturm.setSentimentText("Sturm");
+            sturm.setSentiment(new SentimentVO("Sturm"));
 
             OtherTileResponse vattiTileResponse = new OtherTileResponse();
             vattiTileResponse.setUser(mutti);

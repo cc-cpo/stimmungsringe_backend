@@ -1,5 +1,6 @@
 package de.wirvsvirus.hack.rest;
 
+import de.wirvsvirus.hack.model.SentimentVO;
 import de.wirvsvirus.hack.rest.dto.*;
 import de.wirvsvirus.hack.spring.UserInterceptor;
 import org.slf4j.Logger;
@@ -27,7 +28,7 @@ public class MyStatusPageController {
         me.setDisplayName("Timmy");
 
         final SentimentStatusResponse sentimentStatusResponse = new SentimentStatusResponse();
-        sentimentStatusResponse.setSentimentText("Wolken");
+        sentimentStatusResponse.setSentiment(new SentimentVO("Wolken"));
         final List<SuggestionResponse> suggestions = new ArrayList<>();
 
         {

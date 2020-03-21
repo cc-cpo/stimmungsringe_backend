@@ -21,8 +21,11 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object object) throws Exception {
 
-        if (request.getServletPath().startsWith("/error")
-        || request.getServletPath().startsWith("/registration/")) {
+        if (request.getServletPath().startsWith("/error")) {
+            return true;
+        }
+
+        if (request.getServletPath().startsWith("/registration/")) {
             LOGGER.info("Request for unauthenticated endpoint {}", request.getServletPath());
             Preconditions.checkState(request.getHeader(HEADER_USER_ID) == null,
                     "Unexpected user id header for request %s", request.getRequestURL());
