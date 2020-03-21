@@ -3,6 +3,7 @@ package de.wirvsvirus.hack.rest;
 import com.google.common.collect.Lists;
 import de.wirvsvirus.hack.rest.dto.ApiError;
 import de.wirvsvirus.hack.rest.dto.RegisterUserRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -14,15 +15,14 @@ import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/registration")
+@Slf4j
 public class RegistrationController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
 
     @PostMapping("/new-user")
     @ResponseStatus(HttpStatus.OK)
     public void register(@RequestBody @Valid RegisterUserRequest request) {
 
-        LOGGER.info("Trying to register new user with name <{}>", request.getRequestedUsername());
+        log.info("Trying to register new user with name <{}>", request.getRequestedUsername());
         // TODO
 
         if (!Pattern.compile("[\\p{IsLatin}]{2,20}", Pattern.CASE_INSENSITIVE).matcher(request.getRequestedUsername()).matches()) {

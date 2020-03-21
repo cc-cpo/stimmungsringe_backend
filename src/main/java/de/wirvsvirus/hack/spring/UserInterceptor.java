@@ -1,6 +1,7 @@
 package de.wirvsvirus.hack.spring;
 
 import com.google.common.base.Preconditions;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -9,9 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
+@Slf4j
 public class UserInterceptor extends HandlerInterceptorAdapter {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserInterceptor.class);
 
     private static final String HEADER_USER_ID = "X-User-ID";
 
@@ -26,7 +26,7 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
         }
 
         if (request.getServletPath().startsWith("/registration/")) {
-            LOGGER.info("Request for unauthenticated endpoint {}", request.getServletPath());
+            log.info("Request for unauthenticated endpoint {}", request.getServletPath());
             Preconditions.checkState(request.getHeader(HEADER_USER_ID) == null,
                     "Unexpected user id header for request %s", request.getRequestURL());
             return true;
@@ -37,7 +37,7 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 
         USER_ID_PER_THREAD.set(UUID.fromString(userIdRaw));
 
-        LOGGER.info("Request for authenticated endpoint {} with userID {}", request.getServletPath(), userIdRaw);
+        log.info("Request for authenticated endpoint {} with userID {}", request.getServletPath(), userIdRaw);
 
         return true;
     }

@@ -3,6 +3,7 @@ package de.wirvsvirus.hack.rest;
 import de.wirvsvirus.hack.model.SentimentVO;
 import de.wirvsvirus.hack.rest.dto.*;
 import de.wirvsvirus.hack.spring.UserInterceptor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,14 +15,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/mystatuspage")
+@Slf4j
 public class MyStatusPageController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(MyStatusPageController.class);
 
     @GetMapping
     public MyStatusPageResponse viewMyStatusPage() {
-        System.out.println("currentuser" + UserInterceptor.getCurrentUserId());
-
         MyStatusPageResponse response = new MyStatusPageResponse();
 
         final UserMinimalResponse me = new UserMinimalResponse();
