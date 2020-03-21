@@ -1,13 +1,13 @@
-package de.wirvsvirus.hack.virtuellestimmungsringe;
+package de.wirvsvirus.hack;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VirtuelleStimmungsringeApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VirtuelleStimmungsringeApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }
