@@ -2,15 +2,14 @@ package de.wirvsvirus.hack.model;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class SentimentVO {
 
-    // TODO should be a score
-    /**
-     * e.g. schlechtes Wetter
-     */
-    private String sentimentText;
+    @NotNull
+    private Sentiments sentimentCode;
 
 }

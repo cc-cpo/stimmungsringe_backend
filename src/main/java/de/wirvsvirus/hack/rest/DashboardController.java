@@ -2,6 +2,7 @@ package de.wirvsvirus.hack.rest;
 
 import com.google.common.collect.Lists;
 import de.wirvsvirus.hack.model.SentimentVO;
+import de.wirvsvirus.hack.model.Sentiments;
 import de.wirvsvirus.hack.model.User;
 import de.wirvsvirus.hack.model.UserRepository;
 import de.wirvsvirus.hack.rest.dto.*;
@@ -34,7 +35,7 @@ public class DashboardController {
             final UserMinimalResponse me = Mappers.mapResponseFromDomain(currentUser);
 
             final SentimentStatusResponse regen = new SentimentStatusResponse();
-            regen.setSentiment(new SentimentVO("Regen und Donner"));
+            regen.setSentiment(new SentimentVO(Sentiments.CLOUD_RAIN));
 
             MyTileResponse myTileResponse = new MyTileResponse();
             myTileResponse.setUser(me);
@@ -49,7 +50,7 @@ public class DashboardController {
             final UserMinimalResponse other = Mappers.mapResponseFromDomain(otherUser);
 
             final SentimentStatusResponse sturm = new SentimentStatusResponse();
-            sturm.setSentiment(new SentimentVO("Sturm"));
+            sturm.setSentiment(new SentimentVO(Sentiments.SMOG));
 
             OtherTileResponse tileResponse = new OtherTileResponse();
             tileResponse.setUser(other);

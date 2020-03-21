@@ -1,9 +1,6 @@
 package de.wirvsvirus.hack.rest;
 
-import de.wirvsvirus.hack.model.Role;
-import de.wirvsvirus.hack.model.SentimentVO;
-import de.wirvsvirus.hack.model.User;
-import de.wirvsvirus.hack.model.UserRepository;
+import de.wirvsvirus.hack.model.*;
 import de.wirvsvirus.hack.rest.dto.*;
 import de.wirvsvirus.hack.service.RoleBasedTextSuggestionsService;
 import de.wirvsvirus.hack.spring.UserInterceptor;
@@ -37,7 +34,7 @@ public class MyStatusPageController {
         final UserMinimalResponse me = Mappers.mapResponseFromDomain(currentUser);
 
         final SentimentStatusResponse sentimentStatusResponse = new SentimentStatusResponse();
-        sentimentStatusResponse.setSentiment(new SentimentVO("Wolken"));
+        sentimentStatusResponse.setSentiment(new SentimentVO(Sentiments.CLOUD));
         final List<SuggestionResponse> suggestions = new ArrayList<>();
 
         currentUser.getRoles().stream()

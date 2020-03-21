@@ -2,6 +2,7 @@ package de.wirvsvirus.hack.rest;
 
 import com.google.common.base.Preconditions;
 import de.wirvsvirus.hack.model.SentimentVO;
+import de.wirvsvirus.hack.model.Sentiments;
 import de.wirvsvirus.hack.model.User;
 import de.wirvsvirus.hack.model.UserRepository;
 import de.wirvsvirus.hack.rest.dto.*;
@@ -47,7 +48,7 @@ public class OtherStatusPageController {
         final UserMinimalResponse me = Mappers.mapResponseFromDomain(otherUser);
 
         final SentimentStatusResponse sentimentStatusResponse = new SentimentStatusResponse();
-        sentimentStatusResponse.setSentiment(new SentimentVO("Sonnenschein"));
+        sentimentStatusResponse.setSentiment(new SentimentVO(Sentiments.SUN));
         final List<SuggestionResponse> suggestions = new ArrayList<>();
 
         otherUser.getRoles().stream()
