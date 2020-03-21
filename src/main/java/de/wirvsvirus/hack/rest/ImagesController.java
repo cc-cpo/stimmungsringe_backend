@@ -30,14 +30,17 @@ public class ImagesController {
     public void getImageAsByteArray(HttpServletResponse response,
                             @PathVariable("userId") UUID userId) throws IOException {
 
-        final Path imageDir = Paths.get("images");
+        final Path imageDir = Paths.get("../stimmungsringe-images");
         Preconditions.checkState(Files.isDirectory(imageDir), "Image directory <%s> missing", imageDir);
 
-        Path avatarFile = imageDir.resolve("avatar-" + userId + ".jpg");
+        final Path avatarFile = imageDir.resolve("avatar-" + userId + ".jpg");
 
         if (!Files.isRegularFile(avatarFile)) {
-            log.warn("No avatar file found <%s> - serving fallback image", avatarFile);
-            avatarFile = imageDir.resolve("avatar-fallback.jpg");
+            log.warn("No avatar file found <{}> - serving fallback image", avatarFile);
+            final InputStream fallbackAvatar = ImagesController.class.getResourceAsStream("/images/avatar/avatar-fallback.jpg");
+            response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+            IOUtils.copy(fallbackAvatar, response.getOutputStream());
+            return;
         }
         Preconditions.checkState(Files.isRegularFile(avatarFile), "Avatar image file missing: %s", avatarFile);
 
