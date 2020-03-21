@@ -25,8 +25,10 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        if (request.getServletPath().startsWith("/registration/")) {
-            log.info("Request for unauthenticated endpoint {}", request.getServletPath());
+        if (request.getServletPath().startsWith("/registration/")
+                || request.getServletPath().startsWith("/images/")
+        ) {
+            log.debug("Request for unauthenticated endpoint {}", request.getServletPath());
             Preconditions.checkState(request.getHeader(HEADER_USER_ID) == null,
                     "Unexpected user id header for request %s", request.getRequestURL());
             return true;
@@ -37,7 +39,7 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 
         USER_ID_PER_THREAD.set(UUID.fromString(userIdRaw));
 
-        log.info("Request for authenticated endpoint {} with userID {}", request.getServletPath(), userIdRaw);
+        log.debug("Request for authenticated endpoint {} with userID {}", request.getServletPath(), userIdRaw);
 
         return true;
     }
