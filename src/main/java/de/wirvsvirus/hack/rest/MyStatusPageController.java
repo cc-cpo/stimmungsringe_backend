@@ -1,6 +1,7 @@
 package de.wirvsvirus.hack.rest;
 
 import de.wirvsvirus.hack.rest.dto.*;
+import de.wirvsvirus.hack.spring.UserInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,8 @@ public class MyStatusPageController {
 
     @GetMapping
     public MyStatusPageResponse viewMyStatusPage() {
+        System.out.println("currentuser" + UserInterceptor.getCurrentUserId());
+
         MyStatusPageResponse response = new MyStatusPageResponse();
 
         final UserMinimalResponse me = new UserMinimalResponse();

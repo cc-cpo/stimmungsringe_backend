@@ -47,7 +47,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/stimmungsring/register/new-user",
+					"raw": "http://localhost:8080/stimmungsring/registration/new-user",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -55,7 +55,7 @@
 					"port": "8080",
 					"path": [
 						"stimmungsring",
-						"register",
+						"registration",
 						"new-user"
 					]
 				}
@@ -84,7 +84,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/stimmungsring/register/new-user",
+					"raw": "http://localhost:8080/stimmungsring/registration/new-user",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -92,7 +92,7 @@
 					"port": "8080",
 					"path": [
 						"stimmungsring",
-						"register",
+						"registration",
 						"new-user"
 					]
 				}
@@ -103,7 +103,13 @@
 			"name": "Get Meine Seite",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-User-ID",
+						"value": "a948406a-b855-46ba-b907-321d2d384622",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:8080/stimmungsring/mystatuspage",
 					"protocol": "http",
@@ -123,7 +129,13 @@
 			"name": "Get Fremde Seite",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-User-ID",
+						"value": "a948406a-b855-46ba-b907-321d2d384622",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:8080/stimmungsring/otherstatuspage/39b7f147-2047-4737-a512-973cda73ca00",
 					"protocol": "http",
@@ -135,6 +147,13 @@
 						"stimmungsring",
 						"otherstatuspage",
 						"39b7f147-2047-4737-a512-973cda73ca00"
+					],
+					"query": [
+						{
+							"key": "X-User-I",
+							"value": "",
+							"disabled": true
+						}
 					]
 				}
 			},
@@ -144,9 +163,21 @@
 			"name": "meinen Status aktualisieren",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-User-ID",
+						"value": "a948406a-b855-46ba-b907-321d2d384622",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": ""
+					"raw": "",
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
 				}
 			},
 			"response": []
@@ -155,7 +186,13 @@
 			"name": "Dashboard - view",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-User-ID",
+						"value": "a948406a-b855-46ba-b907-321d2d384622",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:8080/stimmungsring/dashboard",
 					"protocol": "http",
