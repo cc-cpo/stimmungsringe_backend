@@ -1,5 +1,9 @@
 package de.wirvsvirus.hack.service.impl;
 
+import de.wirvsvirus.hack.exception.PushMessageNotSendException;
+import de.wirvsvirus.hack.model.Notification;
+import de.wirvsvirus.hack.model.NotificationData;
+import de.wirvsvirus.hack.model.NotificationMessage;
 import de.wirvsvirus.hack.service.PushNotificationService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -37,30 +41,30 @@ public class PushNotificationServiceImpl implements PushNotificationService {
     }
 
     @Override
-    public void sendMessage(String receiptId, String title, String body) {
+    public void sendMessage(String receiptId, String title, String body) throws PushMessageNotSendException {
         final RestTemplate restTemplate = new RestTemplate();
         final HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        headers.add("Content-Type", "application/json");
-        headers.add("Authorization", "key=" + this.notificationAuthKey);
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        headers.add(HttpHeaders.AUTHORIZATION, "key=" + this.notificationAuthKey);
 
-        final HttpEntity<String> requestEntity = new HttpEntity<>(buildNotificationMessage(receiptId, title, body), headers);
+        final HttpEntity<NotificationMessage> requestEntity = new HttpEntity<>(buildNotificationMessage(receiptId, title, body), headers);
         final ResponseEntity<String> responseEntity = restTemplate.exchange(this.notificationServiceUrl, HttpMethod.POST, requestEntity, String.class);
-        if(responseEntity.getStatusCode() != HttpStatus.OK) {
-            log.error(responseEntity.getBody());
+        if (responseEntity.getStatusCode() != HttpStatus.OK) {
+            throw new PushMessageNotSendException(responseEntity.getBody());
         }
     }
 
-    private String buildNotificationMessage(final String receiptId, final String title, final String body) {
-        return "{\n" +
-                "  \"data\": {\n" +
-                "    \"notification\": {\n" +
-                "        \"title\": \"" + title + "\",\n" +
-                "        \"body\": \"" + body + "\",\n" +
-                "        \"icon\": \"" + "" + "\",\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"to\": \"" + receiptId + "\"\n" +
-                "}\n";
+    private NotificationMessage buildNotificationMessage(final String receiptId, final String title, final String body) {
+        return NotificationMessage.builder()
+                .to(receiptId)
+                .data(NotificationData.builder()
+                        .notification(Notification.builder()
+                                .title(title)
+                                .body(body)
+                                .icon("")
+                                .build())
+                        .build())
+                .build();
     }
 }
