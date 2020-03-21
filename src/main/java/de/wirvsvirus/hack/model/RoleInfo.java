@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class RoleText {
+public class RoleInfo {
 
     private Role role;
     private String expectation;
