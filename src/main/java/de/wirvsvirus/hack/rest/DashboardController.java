@@ -14,7 +14,7 @@ public class DashboardController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DashboardController.class);
 
-    @GetMapping("/view")
+    @GetMapping
     public DashboardResponse dashboardView() {
         DashboardResponse response = new DashboardResponse();
 

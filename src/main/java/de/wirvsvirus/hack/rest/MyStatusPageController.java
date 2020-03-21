@@ -16,27 +16,33 @@ public class MyStatusPageController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MyStatusPageController.class);
 
-//    @GetMapping("/view")
-//    public DashboardResponse dashboardView() {
-//        DashboardResponse response = new DashboardResponse();
-//
-//        final UserMinimalResponse me = new UserMinimalResponse();
-//        me.setDisplayName("Stefan");
-//
-//        final SentimentStatusResponse sentimentStatusResponse = new SentimentStatusResponse();
-//        sentimentStatusResponse.setSentimentText("Regen und Donner");
-//        final List<SuggestionResponse> suggestions = new ArrayList<>();
-//        final SuggestionResponse sugg1 = new SuggestionResponse();
-//        sugg1.
-//                suggestions.add()
-//
-//        MyStatusPageResponse myStatusPageResponse = new MyStatusPageResponse();
-//        myStatusPageResponse.setUser(me);
-//        myStatusPageResponse.setSentimentStatus(sentimentStatusResponse);
-//        myStatusPageResponse.setSuggestions(suggestions);
-//
-//        response.setMyStatusPage(myStatusPage);
-//        return response;
-//    }
+    @GetMapping
+    public MyStatusPageResponse viewMyStatusPage() {
+        MyStatusPageResponse response = new MyStatusPageResponse();
+
+        final UserMinimalResponse me = new UserMinimalResponse();
+        me.setDisplayName("Timmy");
+
+        final SentimentStatusResponse sentimentStatusResponse = new SentimentStatusResponse();
+        sentimentStatusResponse.setSentimentText("Wolken");
+        final List<SuggestionResponse> suggestions = new ArrayList<>();
+
+        {
+            final SuggestionResponse sugg = new SuggestionResponse();
+            sugg.setText("Spiel alleine in deinem Zimmer");
+            suggestions.add(sugg);
+        }
+        {
+            final SuggestionResponse sugg = new SuggestionResponse();
+            sugg.setText("Ruf einen Freund an");
+            suggestions.add(sugg);
+        }
+
+        response.setUser(me);
+        response.setSentimentStatus(sentimentStatusResponse);
+        response.setSuggestions(suggestions);
+
+        return response;
+    }
 
 }
