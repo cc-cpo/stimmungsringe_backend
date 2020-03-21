@@ -1,4 +1,4 @@
-package de.wirvsvirus.hack.model;
+package de.wirvsvirus.hack.rest.dto;
 
 import lombok.Builder;
 import lombok.Data;
