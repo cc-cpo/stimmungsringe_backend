@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.regex.Pattern;
 
 @RestController
-@RequestMapping("/register")
+@RequestMapping("/registration")
 public class RegistrationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
