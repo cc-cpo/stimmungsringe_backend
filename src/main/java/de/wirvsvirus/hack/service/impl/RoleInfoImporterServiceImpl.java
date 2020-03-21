@@ -2,22 +2,29 @@ package de.wirvsvirus.hack.service.impl;
 
 import de.wirvsvirus.hack.exception.RoleNotFoundException;
 import de.wirvsvirus.hack.model.Role;
-import de.wirvsvirus.hack.model.RoleText;
-import de.wirvsvirus.hack.service.RoleTextImporter;
+import de.wirvsvirus.hack.model.RoleInfo;
+import de.wirvsvirus.hack.service.RoleInfoImporterService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @Service
 @Slf4j
-public class RoleTextImporterImpl implements RoleTextImporter {
+public class RoleInfoImporterServiceImpl implements RoleInfoImporterService {
+
+    private static final String DATA_FILE = "/data/role_text.csv";
 
     private static final char DELIMITER = '\t';
 
@@ -28,9 +35,27 @@ public class RoleTextImporterImpl implements RoleTextImporter {
     private static final int COLUMN_THIRD_PARTY_RECOMMENDATION = 4;
     private static final int COLUMN_FOR_OTHERS = 5;
 
+    private Map<Role, List<RoleInfo>> roleRoleDataMap;
+
+    @PostConstruct
+    private void initialize() throws IOException {
+        log.info("Relsole Role data from CSV...");
+        final List<RoleInfo> roleData = importData(RoleInfoImporterService.class.getResourceAsStream(DATA_FILE));
+        this.roleRoleDataMap = roleData.parallelStream().collect(groupingBy(RoleInfo::getRole));
+    }
+
     @Override
-    public List<RoleText> importData(InputStream inputStream) throws IOException {
-        final List<RoleText> roleTexts = new ArrayList<>();
+    public List<String> forMe(Role role) {
+        return this.roleRoleDataMap.get(role).stream().map(r -> r.getForMe()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> forOthers(Role role) {
+        return this.roleRoleDataMap.get(role).stream().map(r -> r.getForOthers()).collect(Collectors.toList());
+    }
+
+    private List<RoleInfo> importData(InputStream inputStream) throws IOException {
+        final List<RoleInfo> roleTexts = new ArrayList<>();
 
         final Iterable<CSVRecord> records = CSVFormat.DEFAULT
                 .withDelimiter(DELIMITER)
@@ -39,7 +64,7 @@ public class RoleTextImporterImpl implements RoleTextImporter {
 
         for (CSVRecord record : records) {
             try {
-                roleTexts.add(RoleText.builder()
+                roleTexts.add(RoleInfo.builder()
                         .role(Role.ofIdentifier(record.get(COLUMN_ROLE)))
                         .expectation(record.get(COLUMN_EXPECTATION))
                         .selfRecommendation(record.get(COLUMN_SELF_RECOMMENDATION))

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class RoleText {
+public class RoleInfo {
 
     private Role role;
     private String expectation;
