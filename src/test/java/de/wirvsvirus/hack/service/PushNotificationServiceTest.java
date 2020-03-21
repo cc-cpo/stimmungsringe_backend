@@ -1,0 +1,19 @@
+package de.wirvsvirus.hack.service;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+public class PushNotificationServiceTest {
+
+    private static final String RECEIPT_ID = "cfLYQIhkdss:APA91bEp0pWohbRDvKnso1Q0qbmbD96yNZiWEeDPzHdj-j04B1x1x7mL_AAlGpLaWluRbiYdNtHiruoYxX4KndOnNSgIhVRv_JV10gLUHJZbNY6l00x9NG6qq9x5V9St40Rdx1CEuI7m";
+
+    @Autowired
+    private PushNotificationService pushNotificationService;
+
+    @Test
+    public void sendPushNotificationTest() {
+        this.pushNotificationService.sendMessage(RECEIPT_ID, "New Message", "Body");
+    }
+}
