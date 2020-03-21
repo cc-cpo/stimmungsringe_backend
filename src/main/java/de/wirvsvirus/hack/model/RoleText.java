@@ -8,7 +8,10 @@ import lombok.Data;
 public class RoleText {
 
     private Role role;
-    private String forOthers;
+    private String expectation;
+    private String selfRecommendation;
     private String forMe;
+    private String thirdPartyRecommendation;
+    private String forOthers;
 
 }

@@ -23,14 +23,13 @@ public class RoleTextImporterTest {
     @Test
     public void role_text_csvImportTest() throws IOException {
         final List<RoleText> roleTexts = this.roleTextImporter.importData(RoleTextImporterTest.class.getResourceAsStream(TESTFILE));
-        assertThat(roleTexts.size(), is(2));
+        assertThat(roleTexts.size(), is(1));
 
         assertThat(roleTexts.get(0).getRole(), is(Role.Arbeitnehmer));
-        assertThat(roleTexts.get(0).getForOthers(), is("Bring mir (deiner Mutter) doch einen Kaffee"));
-        assertThat(roleTexts.get(0).getForMe(), is("Morgen ist auch noch ein Tag"));
-
-        assertThat(roleTexts.get(1).getRole(), is(Role.Kind));
-        assertThat(roleTexts.get(1).getForOthers(), is("Ich will spielen"));
-        assertThat(roleTexts.get(1).getForMe(), is("Ruh dich gut aus"));
+        assertThat(roleTexts.get(0).getExpectation(), is("Ich möchte berufliche Zusagen zeitlich korrekt einhalten."));
+        assertThat(roleTexts.get(0).getSelfRecommendation(), is("Plane Pufferzeiten ein und setze realistische Zeitziele."));
+        assertThat(roleTexts.get(0).getForMe(), is("Du schaffst es, gut Ding will Weile haben!"));
+        assertThat(roleTexts.get(0).getThirdPartyRecommendation(), is("Ist es wirklich wichtig die Zeit einzuhalten oder kannst Du Dich auch verspäten?"));
+        assertThat(roleTexts.get(0).getForOthers(), is("Trink ruhig erst einmal ein Glas Wasser oder schnappe kurz frische Luft!"));
     }
 }
