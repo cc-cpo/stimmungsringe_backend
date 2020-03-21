@@ -106,7 +106,7 @@
 				"header": [
 					{
 						"key": "X-User-ID",
-						"value": "a948406a-b855-46ba-b907-321d2d384622",
+						"value": "cafecafe-b855-46ba-b907-321d2d38beef",
 						"type": "text"
 					}
 				],
@@ -126,18 +126,40 @@
 			"response": []
 		},
 		{
+			"name": "Get My Avatar image",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stimmungsring/images/avatar/cafecafe-b855-46ba-b907-321d2d38beef",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stimmungsring",
+						"images",
+						"avatar",
+						"cafecafe-b855-46ba-b907-321d2d38beef"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Fremde Seite",
 			"request": {
 				"method": "GET",
 				"header": [
 					{
 						"key": "X-User-ID",
-						"value": "a948406a-b855-46ba-b907-321d2d384622",
+						"value": "cafecafe-b855-46ba-b907-321d2d38beef",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/stimmungsring/otherstatuspage/39b7f147-2047-4737-a512-973cda73ca00",
+					"raw": "http://localhost:8080/stimmungsring/otherstatuspage/12340000-b855-46ba-b907-321d2d38feeb",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -146,7 +168,7 @@
 					"path": [
 						"stimmungsring",
 						"otherstatuspage",
-						"39b7f147-2047-4737-a512-973cda73ca00"
+						"12340000-b855-46ba-b907-321d2d38feeb"
 					],
 					"query": [
 						{
@@ -162,21 +184,39 @@
 		{
 			"name": "meinen Status aktualisieren",
 			"request": {
-				"method": "GET",
+				"method": "PUT",
 				"header": [
 					{
 						"key": "X-User-ID",
-						"value": "a948406a-b855-46ba-b907-321d2d384622",
+						"value": "cafecafe-b855-46ba-b907-321d2d38beef",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
 						"type": "text"
 					}
 				],
-				"url": {
-					"raw": "",
-					"query": [
-						{
-							"key": "",
-							"value": ""
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sentiment\": {\n\t\t\"sentimentText\": \"dunkle Wolken\"\n\t} \n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/stimmungsring/mystatus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stimmungsring",
+						"mystatus"
 					]
 				}
 			},
@@ -189,7 +229,7 @@
 				"header": [
 					{
 						"key": "X-User-ID",
-						"value": "a948406a-b855-46ba-b907-321d2d384622",
+						"value": "cafecafe-b855-46ba-b907-321d2d38beef",
 						"type": "text"
 					}
 				],
@@ -203,6 +243,35 @@
 					"path": [
 						"stimmungsring",
 						"dashboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dashboard - view EBS",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-User-ID",
+						"value": "cafecafe-b855-46ba-b907-321d2d38beef",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://wvsvhackvirtuellestimmungsringe-env.eba-eug7bzt6.eu-central-1.elasticbeanstalk.com/stimmungsring/sample",
+					"protocol": "http",
+					"host": [
+						"wvsvhackvirtuellestimmungsringe-env",
+						"eba-eug7bzt6",
+						"eu-central-1",
+						"elasticbeanstalk",
+						"com"
+					],
+					"path": [
+						"stimmungsring",
+						"sample"
 					]
 				}
 			},
