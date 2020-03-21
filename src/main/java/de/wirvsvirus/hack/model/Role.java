@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum Role {
-    Arbeitnehmer("Arbeit"), Elternteil("Eltern"), Partner("Partner"), Kind("Kind"), Me_Time("Me Time");
+    Arbeitnehmer("Arbeitnehmer"), Elternteil("Elternteil"), Partner("Partner"), Kind("Kind"), Me_Time("Me-Time");
 
     private final String identifier;
 

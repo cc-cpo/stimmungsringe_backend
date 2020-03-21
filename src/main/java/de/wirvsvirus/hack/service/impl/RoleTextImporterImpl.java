@@ -4,7 +4,6 @@ import de.wirvsvirus.hack.exception.RoleNotFoundException;
 import de.wirvsvirus.hack.model.Role;
 import de.wirvsvirus.hack.model.RoleText;
 import de.wirvsvirus.hack.service.RoleTextImporter;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -22,9 +21,12 @@ public class RoleTextImporterImpl implements RoleTextImporter {
 
     private static final char DELIMITER = '\t';
 
-    private static final int COLUMN_ROLLE = 0;
-    private static final int COLUMN_FOR_OTHERS = 1;
-    private static final int COLUMN_FOR_ME = 2;
+    private static final int COLUMN_ROLE = 0;
+    private static final int COLUMN_EXPECTATION = 1;
+    private static final int COLUMN_SELF_RECOMMENDATION = 2;
+    private static final int COLUMN_FOR_ME = 3;
+    private static final int COLUMN_THIRD_PARTY_RECOMMENDATION = 4;
+    private static final int COLUMN_FOR_OTHERS = 5;
 
     @Override
     public List<RoleText> importData(InputStream inputStream) throws IOException {
@@ -36,15 +38,14 @@ public class RoleTextImporterImpl implements RoleTextImporter {
                 .parse(new InputStreamReader(inputStream));
 
         for (CSVRecord record : records) {
-            final String role = record.get(COLUMN_ROLLE);
-            final String forOthers = record.get(COLUMN_FOR_OTHERS);
-            final String forMe = record.get(COLUMN_FOR_ME);
-
             try {
                 roleTexts.add(RoleText.builder()
-                        .role(Role.ofIdentifier(role))
-                        .forOthers(forOthers)
-                        .forMe(forMe)
+                        .role(Role.ofIdentifier(record.get(COLUMN_ROLE)))
+                        .expectation(record.get(COLUMN_EXPECTATION))
+                        .selfRecommendation(record.get(COLUMN_SELF_RECOMMENDATION))
+                        .forMe(record.get(COLUMN_FOR_ME))
+                        .thirdPartyRecommendation(record.get(COLUMN_THIRD_PARTY_RECOMMENDATION))
+                        .forOthers(record.get(COLUMN_FOR_OTHERS))
                         .build());
             } catch (RoleNotFoundException e) {
                 log.error(e.getMessage());
