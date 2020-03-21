@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.regex.Pattern;
 
 @RestController
-@RequestMapping("/register")
+@RequestMapping("/registration")
 public class RegistrationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
@@ -26,7 +26,7 @@ public class RegistrationController {
         // TODO
 
         if (!Pattern.compile("[\\p{IsLatin}]{2,20}", Pattern.CASE_INSENSITIVE).matcher(request.getRequestedUsername()).matches()) {
-            throw new RegistrationFailedException("Der Benutzername hat falschem Format " + request.getRequestedUsername());
+            throw new RegistrationFailedException("Der Benutzername " + request.getRequestedUsername() + " hat falschem Format!");
         }
 
     }
