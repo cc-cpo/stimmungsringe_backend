@@ -10,10 +10,8 @@ import de.wirvsvirus.hack.service.RoleBasedTextSuggestionsService;
 import de.wirvsvirus.hack.spring.UserInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -31,7 +29,7 @@ public class OtherStatusPageController {
     @Autowired
     private RoleBasedTextSuggestionsService suggestionsService;
 
-    @GetMapping("/{otherUserId}")
+    @GetMapping(value = "/{otherUserId}")
     public OtherStatusPageResponse viewOtherStatusPage(
             @PathVariable("otherUserId") @NotNull  UUID otherUserId) {
 
