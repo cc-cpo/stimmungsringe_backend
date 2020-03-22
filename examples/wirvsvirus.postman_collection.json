@@ -6,6 +6,26 @@
 	},
 	"item": [
 		{
+			"name": "Get Sample",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stimmungsring/sample",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stimmungsring",
+						"sample"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Register User - Success",
 			"request": {
 				"method": "POST",
@@ -19,7 +39,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"requestedUsername\": \"Stefan\",\n\t\"roles\": [ \"ARBEITNEHMER\" ],\n\t\"sentiment\": {\n\t\t\"sentimentText\": \"Wolken\"\n\t}\n}",
+					"raw": "{\n\t\"requestedUsername\": \"Stefan\",\n\t\"roles\": [ \"ARBEITNEHMER\" ],\n\t\"sentiment\": {\n\t\t\"sentimentCode\": \"CLOUD\"\n\t}\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -248,7 +268,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"sentiment\": {\n\t\t\"sentimentText\": \"dunkle Wolken\"\n\t} \n}",
+					"raw": "{\n\t\"sentimentCode\": \"windy\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -308,7 +328,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://wvsvhackvirtuellestimmungsringe-env.eba-eug7bzt6.eu-central-1.elasticbeanstalk.com/stimmungsring/dashboard",
+					"raw": "http://wvsvhackvirtuellestimmungsringe-env.eba-eug7bzt6.eu-central-1.elasticbeanstalk.com/stimmungsring/sample",
 					"protocol": "http",
 					"host": [
 						"wvsvhackvirtuellestimmungsringe-env",
@@ -319,7 +339,7 @@
 					],
 					"path": [
 						"stimmungsring",
-						"dashboard"
+						"sample"
 					]
 				}
 			},
