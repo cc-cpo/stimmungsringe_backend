@@ -34,7 +34,7 @@ public class MyStatusPageController {
         final UserMinimalResponse me = Mappers.mapResponseFromDomain(currentUser);
 
         final SentimentStatusResponse sentimentStatusResponse = new SentimentStatusResponse();
-        sentimentStatusResponse.setSentiment(new SentimentVO(Sentiment.CLOUD));
+        sentimentStatusResponse.setSentiment(new SentimentVO(Sentiment.cloudy));
         final List<SuggestionResponse> suggestions = new ArrayList<>();
 
         currentUser.getRoles().stream()

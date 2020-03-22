@@ -33,7 +33,7 @@ public class DashboardController {
             final UserMinimalResponse me = Mappers.mapResponseFromDomain(currentUser);
 
             final SentimentStatusResponse regen = new SentimentStatusResponse();
-            regen.setSentiment(new SentimentVO(Sentiment.CLOUD_RAIN));
+            regen.setSentiment(new SentimentVO(Sentiment.cloudyNight));
 
             MyTileResponse myTileResponse = new MyTileResponse();
             myTileResponse.setUser(me);
@@ -48,7 +48,7 @@ public class DashboardController {
             final UserMinimalResponse other = Mappers.mapResponseFromDomain(otherUser);
 
             final SentimentStatusResponse sturm = new SentimentStatusResponse();
-            sturm.setSentiment(new SentimentVO(Sentiment.SMOG));
+            sturm.setSentiment(new SentimentVO(Sentiment.cloudyNight));
 
             OtherTileResponse tileResponse = new OtherTileResponse();
             tileResponse.setUser(other);
