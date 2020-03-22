@@ -8,9 +8,7 @@ import one.util.streamex.StreamEx;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,10 +16,17 @@ import java.util.stream.Collectors;
 public class UserRepository {
 
     private List<User> mockDb = new ArrayList<>();
+    private Map<UUID, Sentiment> sentimentsByUser = new HashMap<>();
 
     @PostConstruct
     public void initMock() {
         mockDb = MockFactory.allUsers();
+
+        mockDb.forEach(user -> {
+            final Sentiment sentiment = MockFactory.sentimentByUser(user.getId());
+            updateStatus(user.getId(), sentiment);
+        });
+
     }
 
     public User findByUserId(final UUID userId) {
@@ -44,7 +49,14 @@ public class UserRepository {
     }
 
     public Sentiment findSentimentByUserId(UUID userId) {
-        return MockFactory.sentimentByUser(userId);
+
+        final Sentiment sentiment = sentimentsByUser.get(userId);
+        Preconditions.checkNotNull(
+            sentiment, "Lookup error on sentiment lookup for user %s", userId);
+        return sentiment;
     }
 
+    public void updateStatus(final UUID userId, final Sentiment sentimentCode) {
+        sentimentsByUser.put(userId, sentimentCode);
+    }
 }
