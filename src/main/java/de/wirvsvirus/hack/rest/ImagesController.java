@@ -22,6 +22,21 @@ public class ImagesController {
     public void getImageAsByteArray(HttpServletResponse response,
                             @PathVariable("userId") UUID userId) throws IOException {
 
+        final InputStream resourceJpg = ImagesController.class.getResourceAsStream("/images/avatar/avatar-" + userId + ".jpg");
+        final InputStream resourcePng = ImagesController.class.getResourceAsStream("/images/avatar/avatar-" + userId + ".png");
+
+        if (resourceJpg != null) {
+            response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+            IOUtils.copy(resourceJpg, response.getOutputStream());
+            return;
+        }
+
+        if (resourcePng != null) {
+            response.setContentType(MediaType.IMAGE_PNG_VALUE);
+            IOUtils.copy(resourcePng, response.getOutputStream());
+            return;
+        }
+
         final InputStream fallbackAvatar = ImagesController.class.getResourceAsStream("/images/avatar/avatar-fallback.jpg");
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
         IOUtils.copy(fallbackAvatar, response.getOutputStream());
