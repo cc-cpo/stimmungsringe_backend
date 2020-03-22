@@ -6,26 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "Get Sample",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/stimmungsring/sample",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"stimmungsring",
-						"sample"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Register User - Success",
 			"request": {
 				"method": "POST",
@@ -328,7 +308,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://wvsvhackvirtuellestimmungsringe-env.eba-eug7bzt6.eu-central-1.elasticbeanstalk.com/stimmungsring/sample",
+					"raw": "http://wvsvhackvirtuellestimmungsringe-env.eba-eug7bzt6.eu-central-1.elasticbeanstalk.com/stimmungsring/dashboard",
 					"protocol": "http",
 					"host": [
 						"wvsvhackvirtuellestimmungsringe-env",
@@ -339,7 +319,7 @@
 					],
 					"path": [
 						"stimmungsring",
-						"sample"
+						"dashboard"
 					]
 				}
 			},
