@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -32,30 +33,34 @@ public class DashboardController {
         {
             final UserMinimalResponse me = Mappers.mapResponseFromDomain(currentUser);
 
-            final SentimentStatusResponse regen = new SentimentStatusResponse();
-            regen.setSentiment(new SentimentVO(Sentiment.cloudyNight));
+            final SentimentStatusResponse sentiment = new SentimentStatusResponse();
+            sentiment.setSentiment(new SentimentVO(userRepository.findSentimentByUserId(currentUser.getId())));
 
             MyTileResponse myTileResponse = new MyTileResponse();
             myTileResponse.setUser(me);
-            myTileResponse.setSentimentStatus(regen);
+            myTileResponse.setSentimentStatus(sentiment);
 
             response.setMyTile(myTileResponse);
         }
 
         final List<User> otherUsersInGroup = userRepository.findOtherUsersInGroup(currentUser.getId());
 
+        final List<OtherTileResponse> otherTiles = new ArrayList<>();
         for (final User otherUser : otherUsersInGroup) {
             final UserMinimalResponse other = Mappers.mapResponseFromDomain(otherUser);
 
-            final SentimentStatusResponse sturm = new SentimentStatusResponse();
-            sturm.setSentiment(new SentimentVO(Sentiment.cloudyNight));
+            final SentimentStatusResponse sentiment = new SentimentStatusResponse();
+
+            sentiment.setSentiment(new SentimentVO(userRepository.findSentimentByUserId(otherUser.getId())));
 
             OtherTileResponse tileResponse = new OtherTileResponse();
             tileResponse.setUser(other);
-            tileResponse.setSentimentStatus(sturm);
+            tileResponse.setSentimentStatus(sentiment);
 
-            response.setOtherTiles(Lists.newArrayList(tileResponse));
+            otherTiles.add(tileResponse);
         }
+
+        response.setOtherTiles(otherTiles);
 
         return response;
     }

@@ -2,6 +2,7 @@ package de.wirvsvirus.hack.mock;
 
 import com.google.common.collect.Lists;
 import de.wirvsvirus.hack.model.Role;
+import de.wirvsvirus.hack.model.Sentiment;
 import de.wirvsvirus.hack.model.User;
 
 import java.util.ArrayList;
@@ -37,4 +38,17 @@ public class MockFactory {
         return users;
     }
 
+    public static Sentiment sentimentByUser(final UUID userId) {
+        if (UUID.fromString("cafecafe-b855-46ba-b907-321d2d38beef").equals(userId)) {
+            return Sentiment.sunnyWithClouds;
+        }
+        if (UUID.fromString("cdeadbeef-b855-46ba-b907-321d01010101f").equals(userId)) {
+            return Sentiment.cloudyNight;
+        }
+        if (UUID.fromString("12340000-b855-46ba-b907-321d2d38feeb").equals(userId)) {
+            return Sentiment.thundery;
+        }
+
+        return Sentiment.cloudy;
+    }
 }

@@ -43,4 +43,8 @@ public class UserRepository {
             .collect(Collectors.toList());
     }
 
+    public Sentiment findSentimentByUserId(UUID userId) {
+        return MockFactory.sentimentByUser(userId);
+    }
+
 }

@@ -46,7 +46,7 @@ public class OtherStatusPageController {
         final UserMinimalResponse me = Mappers.mapResponseFromDomain(otherUser);
 
         final SentimentStatusResponse sentimentStatusResponse = new SentimentStatusResponse();
-        sentimentStatusResponse.setSentiment(new SentimentVO(Sentiment.sunny));
+        sentimentStatusResponse.setSentiment(new SentimentVO(userRepository.findSentimentByUserId(otherUserId)));
         final List<SuggestionResponse> suggestions = new ArrayList<>();
 
         otherUser.getRoles().stream()
